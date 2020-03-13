@@ -1,0 +1,131 @@
+{
+  "project_info": {
+    "project_number": "342689202209",
+    "firebase_url": "https://fir-vote-6c560.firebaseio.com",
+    "project_id": "fir-vote-6c560",
+    "storage_bucket": "fir-vote-6c560.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342689202209:android:31a18f7bab9f97bf45a360",
+        "android_client_info": {
+          "package_name": "com.laon.votewarehouse"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "342689202209-1m92ehm8b63l20gjcdo4kdgrcls7ljnm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laon.votewarehouse",
+            "certificate_hash": "87b022e6487a4641a3dc51d4bbf7ec412adf6cba"
+          }
+        },
+        {
+          "client_id": "342689202209-otved2aiodkcrmi2seackhki5e03a06l.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laon.votewarehouse",
+            "certificate_hash": "f1f8f8375bd3c3cc9071e1141b1b1ec0c3811218"
+          }
+        },
+        {
+          "client_id": "342689202209-2o1p9teqk808bv4i06l9lfehgo5n892b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4L5UzxTl95f3Sc6WbT13nKJGJNNe29oU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "342689202209-2o1p9teqk808bv4i06l9lfehgo5n892b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "342689202209-njj0ugbpafgg25kveqltlcr06b3mgc0j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.laonstory.vote"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:342689202209:android:9b9983bd49227c8b45a360",
+        "android_client_info": {
+          "package_name": "com.laonstory.vote"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "342689202209-mqm61r1g88fls8jj8c5orhedf8rgsv8d.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laonstory.vote",
+            "certificate_hash": "f1f8f8375bd3c3cc9071e1141b1b1ec0c3811218"
+          }
+        },
+        {
+          "client_id": "342689202209-kvjfp5vtuc09dk764nucut18s5ltgguu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laonstory.vote",
+            "certificate_hash": "87b022e6487a4641a3dc51d4bbf7ec412adf6cba"
+          }
+        },
+        {
+          "client_id": "342689202209-2s3t9b2plimetfpgefbpbmqem1bsmgvi.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laonstory.vote",
+            "certificate_hash": "daf866e7aabaf40c23652104276d07a4d9d478f8"
+          }
+        },
+        {
+          "client_id": "342689202209-021c1hjbp14v7re811o7q7d7u92o2jeu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.laonstory.vote",
+            "certificate_hash": "bed18fe78a1b4e5c5fbad4a978ac8489931c9ea2"
+          }
+        },
+        {
+          "client_id": "342689202209-2o1p9teqk808bv4i06l9lfehgo5n892b.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC4L5UzxTl95f3Sc6WbT13nKJGJNNe29oU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "342689202209-2o1p9teqk808bv4i06l9lfehgo5n892b.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "342689202209-njj0ugbpafgg25kveqltlcr06b3mgc0j.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.laonstory.vote"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
