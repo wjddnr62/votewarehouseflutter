@@ -111,7 +111,6 @@ class _AddInfoMationPage extends State<AddInfoMationPage> {
   void initState() {
     super.initState();
 
-    print(dataSave.user.addInfomation);
     if (widget.type == 1 && dataSave.user.addInfomation) {
       print("in");
       selectedCar = dataSave.infoMation.car;
@@ -155,7 +154,38 @@ class _AddInfoMationPage extends State<AddInfoMationPage> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              whiteSpaceH(24),
+              whiteSpaceH(10),
+              Center(
+                child: Text("간단한 추가 정보 입력 시 편의점 기프티콘 100% 증정!", style: TextStyle(
+                    fontWeight: FontWeight.w600, fontSize: 12, color: black
+                ), textAlign: TextAlign.center,),
+              ),
+              whiteSpaceH(10),
+              widget.type != 1 ? Padding(
+                padding: EdgeInsets.only(left: 16, right: 16),
+                child: Container(
+                  width: MediaQuery.of(context).size.width,
+                  height: 56,
+                  child: RaisedButton(
+                    onPressed: () {
+                      backDialog();
+                    },
+                    color: mainColor,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(3)
+                    ),
+                    child: Container(
+                      child: Center(
+                        child: Text("추가 정보 입력하지 않고\n회원가입 완료 하기", style: TextStyle(
+                            color: white, fontSize: 15, fontWeight: FontWeight.w600
+                        ), textAlign: TextAlign.center
+                          ,),
+                      ),
+                    ),
+                  ),
+                ),
+              ) : Container(),
+              whiteSpaceH(20),
               Row(
                 children: <Widget>[
                   Container(
@@ -662,25 +692,25 @@ class _AddInfoMationPage extends State<AddInfoMationPage> {
               Container(
                 child: Row(
                   children: <Widget>[
+//                    Container(
+//                      width: MediaQuery.of(context).size.width / 2,
+//                      height: 60,
+//                      child: RaisedButton(
+//                        onPressed: () {
+//                          backDialog();
+//                        },
+//                        child: Text(
+//                          '나중에',
+//                          style: TextStyle(
+//                              fontWeight: FontWeight.w600,
+//                              fontSize: 15,
+//                              color: black),
+//                        ),
+//                        color: Color(0xffF7F7F8),
+//                      ),
+//                    ),
                     Container(
-                      width: MediaQuery.of(context).size.width / 2,
-                      height: 60,
-                      child: RaisedButton(
-                        onPressed: () {
-                          backDialog();
-                        },
-                        child: Text(
-                          '나중에',
-                          style: TextStyle(
-                              fontWeight: FontWeight.w600,
-                              fontSize: 15,
-                              color: black),
-                        ),
-                        color: Color(0xffF7F7F8),
-                      ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width / 2,
+                      width: MediaQuery.of(context).size.width,
                       height: 60,
                       child: RaisedButton(
                         onPressed: () {

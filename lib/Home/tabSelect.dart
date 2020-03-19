@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:votewarehouse/Public/color.dart';
 import 'package:votewarehouse/Util/showToast.dart';
 
-import 'eventPage.dart';
+import 'package:votewarehouse/LotteryStatus/lotteryStatus.dart';
 import 'homePage.dart';
 import 'menuPage.dart';
 
@@ -20,7 +20,7 @@ class TabSelect extends StatefulWidget {
 class _TabSelect extends State<TabSelect> {
   DateTime currentBackPressTime;
 
-  List bottomPage = [HomePage(), EventPage(), MenuPage()];
+  List bottomPage = [HomePage(), LotteryStatus(), MenuPage()];
 
 
   @override

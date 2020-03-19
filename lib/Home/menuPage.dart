@@ -5,13 +5,13 @@ import 'package:votewarehouse/Home/tabSelect.dart';
 import 'package:votewarehouse/MyPage/myPage.dart';
 import 'package:votewarehouse/Provider/provider.dart';
 import 'package:votewarehouse/Public/color.dart';
-import 'package:votewarehouse/Termsandpolicies_page.dart';
 import 'package:votewarehouse/Util/dataSava.dart';
 import 'package:votewarehouse/Util/whiteSpace.dart';
-import 'package:votewarehouse/planningNews_page.dart';
-import 'package:votewarehouse/questionAnswer_page.dart';
-
-import '../LotteryStatus_page.dart';
+import 'package:votewarehouse/menu/eventPage.dart';
+import 'package:votewarehouse/menu/question.dart';
+import 'package:votewarehouse/menu/termsOfUse.dart';
+import 'package:votewarehouse/menu/privacyPolicy.dart';
+import 'package:votewarehouse/menu/planningNews.dart';
 
 class MenuPage extends StatefulWidget {
   _MenuPage createState() => _MenuPage();
@@ -46,7 +46,7 @@ class _MenuPage extends State<MenuPage> {
 
   pushSet() {
     setState(() {
-        push = dataSave.user.push;
+      push = dataSave.user.push;
     });
   }
 
@@ -137,8 +137,8 @@ class _MenuPage extends State<MenuPage> {
                         child: RaisedButton(
                           elevation: 0.5,
                           onPressed: () {
-                            Navigator.of(context)
-                                .push(MaterialPageRoute(builder: (context) => MyPage()));
+                            Navigator.of(context).push(MaterialPageRoute(
+                                builder: (context) => MyPage()));
                           },
                           color: Colors.white,
                           child: Row(
@@ -168,12 +168,18 @@ class _MenuPage extends State<MenuPage> {
                   ),
                   whiteSpaceH(16),
                   Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 1,
+                    color: Color.fromRGBO(187, 187, 187, 0.5),
+                  ),
+                  Container(
                       width: MediaQuery.of(context).size.width,
                       height: 56,
                       child: RaisedButton(
                         elevation: 0.5,
                         onPressed: () {
-                          lotteryStatus_page(context);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => TabSelect(1)));
                         },
                         color: Colors.white,
                         child: Row(
@@ -203,7 +209,8 @@ class _MenuPage extends State<MenuPage> {
                       child: RaisedButton(
                         elevation: 0.5,
                         onPressed: () {
-                          Event_page(context);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => EventPage()));
                         },
                         color: Colors.white,
                         child: Row(
@@ -233,7 +240,8 @@ class _MenuPage extends State<MenuPage> {
                       child: RaisedButton(
                         elevation: 0.5,
                         onPressed: () {
-                          PlanningNews_page(context);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => PlanningNews()));
                         },
                         color: Colors.white,
                         child: Row(
@@ -258,11 +266,17 @@ class _MenuPage extends State<MenuPage> {
                       )),
                   whiteSpaceH(16),
                   Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 1,
+                    color: Color.fromRGBO(187, 187, 187, 0.5),
+                  ),
+                  Container(
                       width: MediaQuery.of(context).size.width,
                       height: 56,
                       child: RaisedButton(
                         onPressed: () {
-                          Questionanswer_page(context);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => Question()));
                         },
                         elevation: 0.5,
                         color: Colors.white,
@@ -276,7 +290,7 @@ class _MenuPage extends State<MenuPage> {
                             Container(
                               padding: const EdgeInsets.only(left: 16),
                               child: Text(
-                                '질문건의',
+                                '투표건의',
                                 style: TextStyle(
                                     fontSize: 15,
                                     color: black,
@@ -287,6 +301,11 @@ class _MenuPage extends State<MenuPage> {
                         ),
                       )),
                   whiteSpaceH(16),
+                  Container(
+                    width: MediaQuery.of(context).size.width,
+                    height: 1,
+                    color: Color.fromRGBO(187, 187, 187, 0.5),
+                  ),
                   Container(
                       width: MediaQuery.of(context).size.width,
                       height: 56,
@@ -330,15 +349,16 @@ class _MenuPage extends State<MenuPage> {
                       )),
                   Container(
                     width: MediaQuery.of(context).size.width,
-                    height: 1.5,
-                    color: Color(0xFFEEEEFF),
+                    height: 1,
+                    color: Color.fromRGBO(187, 187, 187, 0.5),
                   ),
                   Container(
                       width: MediaQuery.of(context).size.width,
                       height: 56,
                       child: RaisedButton(
                         onPressed: () {
-                          Termsandpolicies_page(context);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => TermsOfUse()));
                         },
                         elevation: 0.5,
                         color: Colors.white,
@@ -368,7 +388,8 @@ class _MenuPage extends State<MenuPage> {
                       height: 56,
                       child: RaisedButton(
                         onPressed: () {
-                          Termsandpolicies_page(context);
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) => PrivacyPolicy()));
                         },
                         elevation: 0.5,
                         color: Colors.white,
@@ -437,31 +458,5 @@ class _MenuPage extends State<MenuPage> {
               ],
             ),
     );
-  }
-
-  void lotteryStatus_page(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => lotteryStatus()));
-  }
-
-  void PlanningNews_page(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => plainningNews()));
-  }
-
-  void Questionanswer_page(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => questanswerpage()));
-  }
-
-  void Termsandpolicies_page(BuildContext context) {
-    Navigator.of(context)
-        .push(MaterialPageRoute(builder: (context) => termsandpolicies()));
-  }
-
-  void Event_page(BuildContext context) {
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(builder: (context) => TabSelect(1)),
-        (Route<dynamic> route) => false);
   }
 }

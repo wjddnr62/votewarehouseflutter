@@ -8,8 +8,6 @@ import 'package:votewarehouse/Util/dataSava.dart';
 import 'package:votewarehouse/Util/showToast.dart';
 import 'package:votewarehouse/Util/whiteSpace.dart';
 
-import '../MyPage/myPage.dart';
-
 class PasswordChange extends StatefulWidget {
   @override
   _PasswordChange createState() => _PasswordChange();
@@ -104,6 +102,32 @@ class _PasswordChange extends State<PasswordChange>
                               height: 48,
                               child: RaisedButton(
                                 onPressed: () {
+                                  Navigator.of(context, rootNavigator: true)
+                                      .pop();
+                                },
+                                color: Color(0xFFF7F7F8),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.only(
+                                        bottomLeft: Radius.circular(12))),
+                                child: Text(
+                                  "취소",
+                                  style: TextStyle(
+                                      fontSize: 13,
+                                      color: black,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
+                            ),
+                          ),
+                          Expanded(
+                            child: Container(
+                              width: MediaQuery
+                                  .of(context)
+                                  .size
+                                  .width,
+                              height: 48,
+                              child: RaisedButton(
+                                onPressed: () {
                                   provider.passChange(newPassController.text)
                                       .then((value) {
                                     if (value == 1) {
@@ -118,45 +142,19 @@ class _PasswordChange extends State<PasswordChange>
                                     }
                                   });
                                 },
-                                color: Color(0xFFF7F7F8),
+                                color: mainColor,
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(12)),
+                                      bottomRight: Radius.circular(12)),
                                 ),
                                 child: Center(
                                   child: Text(
                                     "확인",
                                     style: TextStyle(
-                                        color: black,
+                                        color: white,
                                         fontSize: 13,
                                         fontWeight: FontWeight.w600),
                                   ),
-                                ),
-                              ),
-                            ),
-                          ),
-                          Expanded(
-                            child: Container(
-                              width: MediaQuery
-                                  .of(context)
-                                  .size
-                                  .width,
-                              height: 48,
-                              child: RaisedButton(
-                                onPressed: () {
-                                  Navigator.of(context, rootNavigator: true)
-                                      .pop();
-                                },
-                                color: mainColor,
-                                shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.only(
-                                        bottomRight: Radius.circular(12))),
-                                child: Text(
-                                  "취소",
-                                  style: TextStyle(
-                                      fontSize: 13,
-                                      color: white,
-                                      fontWeight: FontWeight.w600),
                                 ),
                               ),
                             ),

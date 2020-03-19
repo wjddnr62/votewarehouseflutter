@@ -2,8 +2,9 @@ import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_analytics/observer.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:votewarehouse/Public/color.dart';
 import 'dart:async';
 
 import 'Home/tabSelect.dart';
@@ -11,13 +12,18 @@ import 'Provider/provider.dart';
 
 void main() {
   FirebaseAnalytics analytics = FirebaseAnalytics();
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+  ]).then((value) {
+    runApp(MaterialApp(
+      home: Splash(),
+      debugShowCheckedModeBanner: false,
+      debugShowMaterialGrid: false,
+      navigatorObservers: [FirebaseAnalyticsObserver(analytics: analytics)],
+    ));
+  });
 
-  runApp(MaterialApp(
-    home: Splash(),
-    debugShowCheckedModeBanner: false,
-    debugShowMaterialGrid: false,
-    navigatorObservers: [FirebaseAnalyticsObserver(analytics: analytics)],
-  ));
 }
 
 class Splash extends StatefulWidget {
@@ -31,7 +37,7 @@ class _Splash extends State<Splash> {
     return Timer(_duration, navigationPage);
   }
 
-  void navigationPage() {
+  navigationPage() {
     Navigator.of(context)
         .pushReplacement(MaterialPageRoute(builder: (context) => TabSelect(0)));
   }
@@ -39,6 +45,7 @@ class _Splash extends State<Splash> {
   SharedPreferences prefs;
   Provider provider = Provider();
   FirebaseMessaging _fcm = FirebaseMessaging();
+  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
   bool loading = false;
 
   loginCheck() async {
@@ -61,9 +68,51 @@ class _Splash extends State<Splash> {
     }
   }
 
+  Future showNotification(message) async {
+    var androidPlatformChannelSpecifics = new AndroidNotificationDetails(
+        '1', '알림', ' 투표창고 알림',
+        importance: Importance.Max, priority: Priority.High);
+    var iOSPlatformChannelSpecifics = new IOSNotificationDetails();
+    var platformChannelSpecifics = new NotificationDetails(
+        androidPlatformChannelSpecifics, iOSPlatformChannelSpecifics);
+    await flutterLocalNotificationsPlugin.show(
+      0,
+      message['notification']['title'],
+      message['notification']['body'],
+      platformChannelSpecifics,
+      payload: 'Default_Sound',
+    );
+  }
+
+  printText() {
+    print("select");
+  }
+
   @override
   void initState() {
     super.initState();
+
+    var initializationSettingsAndroid =
+    new AndroidInitializationSettings('votehouse_logo');
+    var initializationSettingsIOS = IOSInitializationSettings();
+
+    var initializationSettings = InitializationSettings(
+        initializationSettingsAndroid, initializationSettingsIOS);
+
+    flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+
+    flutterLocalNotificationsPlugin.initialize(initializationSettings, onSelectNotification: printText());
+
+    _fcm.configure(onMessage: (Map<String, dynamic> message) async {
+      print("onMessage: $message");
+      showNotification(message);
+    }, onLaunch: (Map<String, dynamic> message) async {
+      print("onLaunch: $message");
+      showNotification(message);
+    }, onResume: (Map<String, dynamic> message) async {
+      print("onResume: $message");
+      showNotification(message);
+    });
 
     loginCheck();
   }
@@ -104,13 +153,13 @@ class _Splash extends State<Splash> {
               ],
             ),
           ),
-          loading
-              ? Center(
-                  child: CircularProgressIndicator(
-                    valueColor: AlwaysStoppedAnimation<Color>(mainColor),
-                  ),
-                )
-              : Container()
+//          loading
+//              ? Center(
+//                  child: CircularProgressIndicator(
+//                    valueColor: AlwaysStoppedAnimation<Color>(mainColor),
+//                  ),
+//                )
+//              : Container()
         ],
       ),
     );

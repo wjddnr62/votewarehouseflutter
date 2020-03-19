@@ -3,7 +3,8 @@ class VoteResult {
   String question; // ex ) q1
   String title; // ex ) title
   String email;
-  int answer; // ex ) 1
+  int idx;
+  String answer; // ex ) 1
 
-  VoteResult({this.date, this.question, this.title, this.email, this.answer});
+  VoteResult({this.date, this.question, this.title, this.email, this.idx, this.answer});
 }

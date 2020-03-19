@@ -9,7 +9,7 @@ import 'package:votewarehouse/Util/showToast.dart';
 
 import 'package:votewarehouse/Util/whiteSpace.dart';
 
-import 'FindIDPassward_page.dart';
+import 'authFind.dart';
 import 'singupPage.dart';
 import 'package:votewarehouse/Public/style.dart';
 import 'package:votewarehouse/Public/color.dart';

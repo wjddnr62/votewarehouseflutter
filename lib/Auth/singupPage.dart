@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:intl/intl.dart';
 import 'package:votewarehouse/Public/citys.dart';
 import 'package:votewarehouse/Util/showToast.dart';
 import 'package:votewarehouse/Provider/provider.dart';
@@ -94,7 +95,7 @@ class _SignUpPage extends State<SignUpPage> with TickerProviderStateMixin {
 
     final PhoneCodeSent codeSent =
         (String verificationId, [int forceResendingToken]) async {
-      showToast("인증 번호가 발송되었습니다. 인증 번호를 입력해주세요.");
+      showToast("인증 번호가 발송되었습니다.\n인증 번호를 입력해주세요.");
       this.verificationId = verificationId;
     };
 
@@ -151,11 +152,11 @@ class _SignUpPage extends State<SignUpPage> with TickerProviderStateMixin {
           titleText,
           style: titleTextStyle,
         ),
-        whiteSpaceH(3),
-        Text(
-          "작성완료된 부분은 수정할 수 없습니다.",
-          style: TextStyle(fontSize: 10, color: Colors.black87),
-        ),
+//        whiteSpaceH(3),
+//        Text(
+//          "작성완료된 부분은 수정할 수 없습니다.",
+//          style: TextStyle(fontSize: 10, color: Colors.black87),
+//        ),
         whiteSpaceH(42),
         AnimatedSize(
             vsync: this,
@@ -278,10 +279,18 @@ class _SignUpPage extends State<SignUpPage> with TickerProviderStateMixin {
                                 inputFormatters: [
                                   WhitelistingTextInputFormatter.digitsOnly
                                 ],
-                                onChanged: (value) {
+                                onChanged: (value) async {
                                   if (value.length > 9) {
-                                    setState(() {
-                                      phoneCheck = true;
+                                    await provider.phoneDuplicate(value.trim()).then((value) {
+                                      if (value != 0) {
+                                        setState(() {
+                                          phoneCheck = false;
+                                        });
+                                      } else {
+                                        setState(() {
+                                          phoneCheck = true;
+                                        });
+                                      }
                                     });
                                   } else {
                                     setState(() {
@@ -289,7 +298,7 @@ class _SignUpPage extends State<SignUpPage> with TickerProviderStateMixin {
                                     });
                                   }
                                 },
-                                readOnly: type > 4 ? true : false,
+//                                readOnly: type > 4 ? true : false,
                                 decoration: InputDecoration(
                                     counterText: "",
                                     labelText: '- 없이 번호 입력',
@@ -330,7 +339,7 @@ class _SignUpPage extends State<SignUpPage> with TickerProviderStateMixin {
                                             .requestFocus(smsCodeNode);
                                       });
                                     } else {
-                                      showToast("알맞은 휴대폰번호를 입력해주세요.");
+                                      showToast("알맞은 형식에 번호가 아니거나 이미 가입된 번호입니다.");
                                     }
                                   }
                                 },
@@ -371,7 +380,7 @@ class _SignUpPage extends State<SignUpPage> with TickerProviderStateMixin {
                           maxLength: 20,
                           controller: passCheckController,
                           focusNode: passCheckNode,
-                          readOnly: type > 2 ? true : false,
+//                          readOnly: type > 2 ? true : false,
                           style: textStyle,
                           obscureText: true,
                           decoration: InputDecoration(
@@ -412,7 +421,7 @@ class _SignUpPage extends State<SignUpPage> with TickerProviderStateMixin {
                           maxLength: 20,
                           controller: passController,
                           focusNode: passNode,
-                          readOnly: type > 2 ? true : false,
+//                          readOnly: type > 2 ? true : false,
                           style: textStyle,
                           obscureText: true,
                           decoration: InputDecoration(
@@ -463,7 +472,7 @@ class _SignUpPage extends State<SignUpPage> with TickerProviderStateMixin {
               });
             },
             controller: emailController,
-            readOnly: type == 0 ? false : true,
+//            readOnly: type == 0 ? false : true,
             focusNode: emailNode,
             style: textStyle,
             keyboardType: TextInputType.emailAddress,
@@ -780,6 +789,10 @@ class _SignUpPage extends State<SignUpPage> with TickerProviderStateMixin {
                                     decoration: TextDecoration.underline))
                           ]),
                         ),
+                        whiteSpaceH(5),
+                        Text("※ 미 입력시 3개월에 한번 권유", style: TextStyle(
+                          color: black, fontSize: 12
+                        ),),
                         whiteSpaceH(20),
                       ],
                     ),
@@ -1152,13 +1165,24 @@ class _SignUpPage extends State<SignUpPage> with TickerProviderStateMixin {
                               'gender': genDer,
                               'age': age,
                               'addInfomation': false,
-                              'push': true
+                              'push': true,
+                              'signDate': DateFormat('yyyy-MM-dd').format(DateTime.now()),
+                              'addInfoDate': DateFormat('yyyy-MM-dd').format(DateTime.now()),
                             }).then((value) {
                               if (value == 1) {
                                 setState(() {
                                   signLoading = false;
                                 });
-                                signFinDialog();
+//                                signFinDialog();
+                                Navigator.of(context).pushAndRemoveUntil(
+                                    MaterialPageRoute(
+                                      builder: (context) =>
+                                          AddInfoMationPage(
+                                            email: email,
+                                            type: 0,
+                                          ),
+                                    ),
+                                        (Route<dynamic> route) => false);
                               } else {
                                 setState(() {
                                   signLoading = false;

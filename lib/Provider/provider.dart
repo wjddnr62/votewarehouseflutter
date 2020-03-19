@@ -19,6 +19,12 @@ class Provider {
     return 1;
   }
 
+  Future<int> questionAdd(questionData) async {
+    await Firestore.instance.collection("suggestion").add(questionData);
+
+    return 1;
+  }
+
   Future<int> addInfomation(infoMation, email) async {
     CollectionReference userCollection = Firestore.instance.collection("users");
     QuerySnapshot userQuery =
@@ -28,6 +34,7 @@ class Provider {
         .collection("infomation")
         .add(infoMation)
         .then((value) {
+
       return 1;
     }).catchError((error) {
       return 0;
@@ -54,6 +61,36 @@ class Provider {
         .getDocuments();
 
     if (infoQuery.documents.length == 0) {
+
+      addInfomation({
+        'car': infomation.car,
+        'email': infomation.email,
+        'family': infomation.family,
+        'familyMoney': infomation.familyMoney,
+        'house': infomation.house,
+        'houseLiving': infomation.houseLiving,
+        'job': infomation.job,
+        'marriage': infomation.marriage,
+        'myMoney': infomation.myMoney,
+        'phoneAgency': infomation.phoneAgency,
+        'politics': infomation.politics,
+        'school': infomation.school
+      }, dataSave.email);
+
+      dataSave.infoMation = Infomation(
+          email: infomation.email,
+          car: infomation.car,
+          family: infomation.family,
+          familyMoney:  infomation.familyMoney,
+          house: infomation.house,
+          houseLiving: infomation.houseLiving,
+          job: infomation.job,
+          marriage: infomation.marriage,
+          myMoney:  infomation.myMoney,
+          phoneAgency: infomation.phoneAgency,
+          politics: infomation.politics,
+          school: infomation.school);
+
       return 0;
     } else {
       await Firestore.instance
@@ -73,6 +110,7 @@ class Provider {
         'politics': infomation.politics,
         'school': infomation.school
       });
+
 
       await Firestore.instance
           .collection("users")
@@ -103,6 +141,49 @@ class Provider {
 
     QuerySnapshot userQuery =
         await userCollection.where("email", isEqualTo: id).getDocuments();
+
+    if (userQuery.documents.length == 0) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+
+  Future<int> phoneDuplicate(phone) async {
+    CollectionReference userCollection = Firestore.instance.collection("users");
+
+    QuerySnapshot userQuery =
+        await userCollection.where("phone", isEqualTo: phone).getDocuments();
+
+    if (userQuery.documents.length == 0) {
+      return 0;
+    } else {
+      return 1;
+    }
+  }
+
+  Future<String> findId(phone) async {
+    CollectionReference userCollection = Firestore.instance.collection("users");
+
+    QuerySnapshot userQuery =
+        await userCollection.where("phone", isEqualTo: phone).getDocuments();
+
+    if (userQuery.documents.length == 0) {
+      return "";
+    } else {
+      return userQuery.documents[0].data['email'];
+    }
+  }
+
+  Future<int> findPass(email, phone) async {
+    print("email : " + email);
+    print("phone : " + phone);
+    CollectionReference userCollection = Firestore.instance.collection("users");
+
+    QuerySnapshot userQuery = await userCollection
+        .where("email", isEqualTo: email)
+        .where("phone", isEqualTo: phone)
+        .getDocuments();
 
     if (userQuery.documents.length == 0) {
       return 0;
@@ -166,6 +247,24 @@ class Provider {
     }
   }
 
+  Future<int> authFindPassChange(password, email) async {
+    CollectionReference userCollection = Firestore.instance.collection("users");
+
+    QuerySnapshot userQuery =
+        await userCollection.where("email", isEqualTo: email).getDocuments();
+
+    if (userQuery.documents.length == 0) {
+      return 0;
+    } else {
+      await Firestore.instance
+          .collection("users")
+          .document(userQuery.documents[0].documentID)
+          .updateData({'password': password});
+
+      return 1;
+    }
+  }
+
   Future<int> passChange(password) async {
     CollectionReference userCollection = Firestore.instance.collection("users");
 
@@ -210,17 +309,19 @@ class Provider {
     QuerySnapshot infoQuery =
         await infoCollection.where("email", isEqualTo: email).getDocuments();
 
+    if (infoQuery.documents.length != 0) {
+      await Firestore.instance
+          .collection("infomation")
+          .document(infoQuery.documents[0].documentID)
+          .delete();
+    }
+
     if (userQuery.documents.length == 0) {
       return 0;
     } else {
       await Firestore.instance
           .collection("users")
           .document(userQuery.documents[0].documentID)
-          .delete();
-
-      await Firestore.instance
-          .collection("infomation")
-          .document(infoQuery.documents[0].documentID)
           .delete();
 
       shared = await SharedPreferences.getInstance();
@@ -253,7 +354,7 @@ class Provider {
     }
   }
 
-  Future<int> voteResult(List<VoteResult> voteResult, politics) async {
+  Future<int> voteResult(List<VoteResult> voteResult) async {
     CollectionReference voteCollection =
         Firestore.instance.collection("voteResult");
 
@@ -263,17 +364,27 @@ class Provider {
           .collection(voteResult[i].question)
           .document(voteResult[i].title)
           .collection(dataSave.email)
-          .add({'answer': voteResult[i].answer});
+          .add({'answer': voteResult[i].answer, 'idx':voteResult[i].idx});
+
+      await voteCollection
+          .document(voteResult[i].date)
+          .collection(voteResult[i].question)
+          .document(voteResult[i].title)
+          .setData({"1": "1"});
+    }
+
+    QuerySnapshot existsCheck = await voteCollection.document(voteResult[0].date).collection("email").getDocuments();
+    DocumentSnapshot documentSnapshot = await voteCollection.document(voteResult[0].date).get();
+    int index = 1;
+    if (existsCheck.documents.length != 0) {
+      index = documentSnapshot.data['index'];
     }
 
     await voteCollection
         .document(voteResult[0].date)
-        .collection("politics")
-        .add({'email': dataSave.email, 'selectPolitics': politics});
+        .setData({'date': voteResult[0].date, 'index': index});
 
-    await voteCollection
-        .document(voteResult[0].date)
-        .setData({'date': voteResult[0].date});
+    await voteCollection.document(voteResult[0].date).collection("email").add({'email': dataSave.email});
 
     return 1;
   }
@@ -286,22 +397,18 @@ class Provider {
 
     QuerySnapshot voteQuery = await voteCollection
         .document(nowDate)
-        .collection("politics")
+        .collection("email")
         .where("email", isEqualTo: dataSave.email)
         .getDocuments();
 
     if (voteQuery.documents.length == 0) {
       return 0;
     } else {
-      print(voteQuery.documents[0].exists);
       return 1;
     }
   }
 
   Future<List<double>> voteCount(question, title) async {
-    print(question);
-    print(title);
-
     CollectionReference voteCollection =
         Firestore.instance.collection("voteResult");
     CollectionReference voteListCollection =
@@ -309,25 +416,24 @@ class Provider {
 
     String nowDate = DateFormat("yyyy-MM-dd").format(DateTime.now());
 
-    QuerySnapshot voteQuery = await voteCollection
-        .document(nowDate)
-        .collection("politics")
-        .getDocuments();
+
+    DocumentSnapshot voteQuery = await voteCollection.document(nowDate).get();
+    QuerySnapshot voteEmail = await voteCollection.document(nowDate).collection('email').getDocuments();
 
     QuerySnapshot voteCountQuery = await voteListCollection
         .document(nowDate)
         .collection(question)
         .getDocuments();
 
-    int allPersonCount = voteQuery.documents.length;
+    int allPersonCount = voteQuery.data['index'];
 
     int answerCount = voteCountQuery.documents[0].data['answer'].length;
 
     List<String> email = List();
     List<int> answerCountList = List();
 
-    for (int i = 0; i < voteQuery.documents.length; i++) {
-      email.add(voteQuery.documents[i].data['email']);
+    for (int i = 0; i < voteQuery.data['index']; i++) {
+      email.add(voteEmail.documents[i].data['email']);
     }
     for (int i = 0; i < email.length; i++) {
       await voteCollection
@@ -337,7 +443,7 @@ class Provider {
           .collection(email[i])
           .getDocuments()
           .then((value) {
-        answerCountList.add(value.documents[0].data['answer'] - 1);
+        answerCountList.add(value.documents[0].data['idx']);
       });
     }
 
@@ -369,7 +475,7 @@ class Provider {
         .collection(dataSave.email)
         .getDocuments();
 
-    return voteQuery.documents[0].data['answer'];
+    return voteQuery.documents[0].data['idx'];
   }
 
   Future<List<double>> politicsCount() async {
