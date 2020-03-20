@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>342689202209-h127nggmrrejn0egb2177cslo8kc86ac.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.342689202209-h127nggmrrejn0egb2177cslo8kc86ac</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>342689202209-1m92ehm8b63l20gjcdo4kdgrcls7ljnm.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAHtiN2s0PfxbWdHNqKJZpnauj-ScKXi14</string>
+	<key>GCM_SENDER_ID</key>
+	<string>342689202209</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.laon.votewarehouse</string>
+	<key>PROJECT_ID</key>
+	<string>fir-vote-6c560</string>
+	<key>STORAGE_BUCKET</key>
+	<string>fir-vote-6c560.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:342689202209:ios:da4eeeec870522a245a360</string>
+	<key>DATABASE_URL</key>
+	<string>https://fir-vote-6c560.firebaseio.com</string>
+</dict>
+</plist>

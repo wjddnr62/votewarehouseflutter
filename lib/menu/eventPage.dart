@@ -88,7 +88,7 @@ class _EventPage extends State<EventPage> {
                                   borderRadius: BorderRadius.circular(6)),
                               child: Image.network(
                                 banners[idx].image,
-                                fit: BoxFit.fill,
+                                fit: BoxFit.cover,
                               ),
                             ),
                           ),

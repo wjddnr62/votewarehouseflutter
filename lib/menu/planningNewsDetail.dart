@@ -68,7 +68,7 @@ class _PlanningNewsDetail extends State<PlanningNewsDetail> {
               padding: EdgeInsets.all(16),
               child: Container(
                 width: MediaQuery.of(context).size.width,
-                height: 56,
+                height: 116,
                 decoration: BoxDecoration(
                   color: mainColor,
                   borderRadius: BorderRadius.circular(6)

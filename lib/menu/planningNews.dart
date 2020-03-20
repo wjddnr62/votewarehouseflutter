@@ -84,7 +84,7 @@ class _PlanningNews extends State<PlanningNews> {
                       children: <Widget>[
                         Container(
                           width: MediaQuery.of(context).size.width,
-                          height: 64,
+                          height: 116,
                           child: RaisedButton(
                             elevation: 0,
                             padding: EdgeInsets.zero,

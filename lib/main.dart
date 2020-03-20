@@ -94,7 +94,11 @@ class _Splash extends State<Splash> {
 
     var initializationSettingsAndroid =
     new AndroidInitializationSettings('votehouse_logo');
-    var initializationSettingsIOS = IOSInitializationSettings();
+    var initializationSettingsIOS = IOSInitializationSettings(
+      requestSoundPermission: false,
+      requestBadgePermission: false,
+      requestAlertPermission: false
+    );
 
     var initializationSettings = InitializationSettings(
         initializationSettingsAndroid, initializationSettingsIOS);
